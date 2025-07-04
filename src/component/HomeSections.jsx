@@ -11,9 +11,15 @@ import {
   verticalListSortingStrategy,
   arrayMove,
 } from '@dnd-kit/sortable';
+import { useSelector, useDispatch } from 'react-redux';
+import { setSections } from '../redux/homeSlice'; // import your Redux action
 import SortableItem from './SortableItem';
 
-const HomeSections = ({ sections, setSections }) => {
+const HomeSections = () => {
+  const dispatch = useDispatch();
+  const sections = useSelector((state) => state.home.sections);
+console.log("Sections from Redux:", sections);
+
   const sensors = useSensors(useSensor(PointerSensor));
 
   const handleDragEnd = (event) => {
@@ -21,25 +27,29 @@ const HomeSections = ({ sections, setSections }) => {
     if (active.id !== over?.id) {
       const oldIndex = sections.findIndex((i) => i.id === active.id);
       const newIndex = sections.findIndex((i) => i.id === over?.id);
-      setSections(arrayMove(sections, oldIndex, newIndex));
+      const newOrder = arrayMove(sections, oldIndex, newIndex);
+      dispatch(setSections(newOrder)); // update redux store
     }
   };
 
   return (
-    <DndContext
-      sensors={sensors}
-      collisionDetection={closestCenter}
-      onDragEnd={handleDragEnd}
-    >
-      <SortableContext
-        items={sections.map((i) => i.id)}
-        strategy={verticalListSortingStrategy}
+    <div className="p-6 bg-white rounded-xl shadow-md w-[450px] h-[500px] ">
+      {/* <h2 className="text-xl font-semibold mb-4">Home Sections</h2> */}
+      <DndContext
+        sensors={sensors}
+        collisionDetection={closestCenter}
+        onDragEnd={handleDragEnd}
       >
-        {sections.map((item) => (
-          <SortableItem key={item.id} id={item.id} label={item.label} />
-        ))}
-      </SortableContext>
-    </DndContext>
+        <SortableContext
+          items={sections.map((i) => i.id)}
+          strategy={verticalListSortingStrategy}
+        >
+          {sections.map((item) => (
+            <SortableItem key={item.id} id={item.id} label={item.label} />
+          ))}
+        </SortableContext>
+      </DndContext>
+    </div>
   );
 };
 

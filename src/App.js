@@ -20,22 +20,28 @@ const App = () => {
     if (data) dispatch(setSections(JSON.parse(data)));
   };
 
-  const handleExport = () => {
-    const exportData = { homeSections: sections };
-    const json = JSON.stringify(exportData, null, 2);
-    alert(json);
-  };
+const handleExport = () => {
+  const exportData = { homeSections: sections };
+  const json = JSON.stringify(exportData, null, 2);
+  const blob = new Blob([json], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'homeSections.json';
+  a.click();
+
+  URL.revokeObjectURL(url); // Clean up the URL object
+};
+
 
   return (
     <div className="p-6">
+      <ControlPanel onSave={handleSave} onLoad={handleLoad} onExport={handleExport} onReset={() => dispatch(resetSections())} />
       <h1 className="text-xl font-bold mb-4">Visual Page Hierarchy Editor</h1>
       <FlowEditor />
-      <h2 className="mt-8 font-semibold">Home Page Sections</h2>
-      <HomeSections
-        sections={sections}
-        setSections={(newSections) => dispatch(setSections(newSections))}
-      />
-      <ControlPanel onSave={handleSave} onLoad={handleLoad} onExport={handleExport} onReset={() => dispatch(resetSections())} />
+      {/* <h2 className="mt-8 font-semibold">Home Page Sections</h2> */}
+      
     </div>
   );
 };

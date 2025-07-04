@@ -1,14 +1,17 @@
+// store.js
 import { configureStore } from '@reduxjs/toolkit';
 import homeReducer from './homeSlice';
+import { defaultHomeSections } from '../utils/data';
 
 const loadFromLocalStorage = () => {
   try {
     const data = localStorage.getItem('homeSections');
-    return data ? JSON.parse(data) : undefined;
+    return data ? JSON.parse(data) : defaultHomeSections;
   } catch {
-    return undefined;
+    return defaultHomeSections;
   }
 };
+
 
 const saveToLocalStorage = (state) => {
   try {
@@ -24,7 +27,7 @@ const store = configureStore({
   },
   preloadedState: {
     home: {
-      sections: loadFromLocalStorage() || [],
+      sections: loadFromLocalStorage(),
     },
   },
 });

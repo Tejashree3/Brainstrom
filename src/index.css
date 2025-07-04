@@ -1,3 +1,116 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.btn-blue {
+  --btn-color: rgba(2, 126, 251, 1);
+  --btn-gradient: linear-gradient(0deg, rgba(0, 172, 238, 1) 0%, rgba(2, 126, 251, 1) 100%);
+}
+
+.btn-green {
+  --btn-color: #28a745;
+  --btn-gradient: linear-gradient(0deg, #28e07f 0%, #28a745 100%);
+}
+
+.btn-red {
+  --btn-color: #dc3545;
+  --btn-gradient: linear-gradient(0deg, #ff7a7a 0%, #dc3545 100%);
+}
+
+.btn-indigo {
+  --btn-color: #6610f2;
+  --btn-gradient: linear-gradient(0deg, #a173f8 0%, #6610f2 100%);
+}
+
+.btn-3 {
+  background: var(--btn-gradient);
+  width: 140px;
+  height: 40px;
+  line-height: 42px;
+  padding: 0;
+  border: 2;
+  color: white;
+  cursor: pointer;
+  font-family: 'Quicksand', sans-serif;
+  font-weight: bold;
+  position: relative;
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+
+.btn-3 span {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  gap: 6px;
+  transition: color 0.3s ease;
+  z-index: 2;
+}
+
+/* Use CSS variable everywhere */
+.btn-3:before,
+.btn-3:after {
+  position: absolute;
+  content: "";
+  right: 0;
+  top: 0;
+  background: var(--btn-color);
+  transition: all 0.3s ease;
+  z-index: 1;
+}
+
+.btn-3:before {
+  height: 0%;
+  width: 2px;
+}
+.btn-3:after {
+  width: 0%;
+  height: 2px;
+}
+
+.btn-3:hover {
+  background: transparent;
+  box-shadow: none;
+}
+
+.btn-3:hover:before {
+  height: 100%;
+}
+.btn-3:hover:after {
+  width: 100%;
+}
+
+.btn-3 span:before,
+.btn-3 span:after {
+  position: absolute;
+  content: "";
+  left: 0;
+  bottom: 0;
+  background: var(--btn-color);
+  transition: all 0.3s ease;
+  z-index: 1;
+}
+
+.btn-3 span:before {
+  width: 2px;
+  height: 0%;
+}
+.btn-3 span:after {
+  width: 0%;
+  height: 2px;
+}
+
+/* Fix: use var(--btn-color) instead of hardcoded rgba */
+.btn-3 span:hover {
+  color: var(--btn-color);
+}
+
+.btn-3 span:hover:before {
+  height: 100%;
+}
+.btn-3 span:hover:after {
+  width: 100%;
+}
