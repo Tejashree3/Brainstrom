@@ -40,14 +40,15 @@ const HomeSections = () => {
         collisionDetection={closestCenter}
         onDragEnd={handleDragEnd}
       >
-        <SortableContext
-          items={sections.map((i) => i.id)}
-          strategy={verticalListSortingStrategy}
-        >
-          {sections.map((item) => (
-            <SortableItem key={item.id} id={item.id} label={item.label} />
-          ))}
-        </SortableContext>
+     <SortableContext
+  items={sections && sections.map((i) => i.id)}
+  strategy={verticalListSortingStrategy}
+>
+  {sections && sections.map((item) => (
+    <SortableItem key={item.id} id={item.id} label={item.label} />
+  ))}
+</SortableContext>
+
       </DndContext>
     </div>
   );

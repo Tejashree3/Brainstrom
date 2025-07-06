@@ -32,42 +32,46 @@ const FlowEditor = () => {
       setNodes(JSON.parse(savedNodes));
       setEdges(JSON.parse(savedEdges));
     } else {
-      const rawNodes = pageHierarchy.map((page) => ({
-        id: page.id,
-        data: {
-          label:
-            page.id === "home" ? (
-              <div className="p-4">
-                <h2 className="text-lg font-semibold mb-2">Home</h2>
-                <HomeSections />
-              </div>
-            ) : (
-              <div className="text-center font-medium">{page.label}</div>
-            ),
-        },
-        position: { x: 0, y: 0 },
-        draggable: page.id !== "home",
-        selectable: true,
-        deletable: page.id !== "home", 
-        style: {
-          backgroundColor: getColor(page),
-          borderRadius: 12,
-          padding: 10,
-          border: "1px solid #ccc",
-          width: page.id === "home" ? 500 : 200,
-          height: page.id === "home" ? 600 : "auto",
-          overflow: "hidden",
-        },
-      }));
+      const rawNodes = pageHierarchy?.length
+        ? pageHierarchy.map((page) => ({
+            id: page.id,
+            data: {
+              label:
+                page.id === "home" ? (
+                  <div className="p-4">
+                    <h2 className="text-lg font-semibold mb-2">Home</h2>
+                    <HomeSections />
+                  </div>
+                ) : (
+                  <div className="text-center font-medium">{page.label}</div>
+                ),
+            },
+            position: { x: 0, y: 0 },
+            draggable: page.id !== "home",
+            selectable: true,
+            deletable: page.id !== "home",
+            style: {
+              backgroundColor: getColor(page),
+              borderRadius: 12,
+              padding: 10,
+              border: "1px solid #ccc",
+              width: page.id === "home" ? 500 : 200,
+              height: page.id === "home" ? 600 : "auto",
+              overflow: "hidden",
+            },
+          }))
+        : [];
 
-      const rawEdges = pageHierarchy
-        .filter((p) => p.parent)
-        .map((p) => ({
-          id: `${p.parent}-${p.id}`,
-          source: p.parent,
-          target: p.id,
-          animated: true,
-        }));
+      const rawEdges = pageHierarchy?.length
+        ? pageHierarchy
+            .filter((p) => p.parent)
+            .map((p) => ({
+              id: `${p.parent}-${p.id}`,
+              source: p.parent,
+              target: p.id,
+              animated: true,
+            }))
+        : [];
 
       const layouted = getLayoutedElements(rawNodes, rawEdges, "TB");
       setNodes(layouted.nodes);
