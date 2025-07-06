@@ -98,7 +98,7 @@ const FlowEditor = () => {
   };
 
   return (
-    <div className="w-full h-[750px] relative">
+    <div className="w-full h-[850px] relative">
       <ReactFlow
         nodes={nodes}
         edges={edges}
