@@ -81,7 +81,7 @@ const App = () => {
   return (
     <div className="p-6">
       <ControlPanel onSave={handleSave} onLoad={handleLoad} onExport={handleExport} onReset={() => dispatch(resetSections())} />
-      <h1 className="text-xl font-bold mb-4">Visual Page Hierarchy Editor</h1>
+      <h1 className="text-xl font-bold mb-8 mt-6">Visual Page Hierarchy Editor</h1>
       <FlowEditor />
       {/* <h2 className="mt-8 font-semibold">Home Page Sections</h2> */}
 

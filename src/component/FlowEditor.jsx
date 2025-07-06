@@ -48,7 +48,7 @@ const FlowEditor = () => {
         position: { x: 0, y: 0 },
         draggable: page.id !== "home",
         selectable: true,
-        deletable: page.id !== "home", // Prevent deleting Home node
+        deletable: page.id !== "home", 
         style: {
           backgroundColor: getColor(page),
           borderRadius: 12,
@@ -112,12 +112,12 @@ const FlowEditor = () => {
         <Controls />
       </ReactFlow>
 
-      <button
+      {/* <button
         onClick={handleExport}
         className="absolute top-4 right-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition"
       >
         Export JSON
-      </button>
+      </button> */}
     </div>
   );
 };
