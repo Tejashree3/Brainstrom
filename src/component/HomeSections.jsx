@@ -1,24 +1,24 @@
-import React from 'react';
+import React from "react";
 import {
   DndContext,
   closestCenter,
   useSensor,
   useSensors,
   PointerSensor,
-} from '@dnd-kit/core';
+} from "@dnd-kit/core";
 import {
   SortableContext,
   verticalListSortingStrategy,
   arrayMove,
-} from '@dnd-kit/sortable';
-import { useSelector, useDispatch } from 'react-redux';
-import { setSections } from '../redux/homeSlice'; // import your Redux action
-import SortableItem from './SortableItem';
+} from "@dnd-kit/sortable";
+import { useSelector, useDispatch } from "react-redux";
+import { setSections } from "../redux/homeSlice"; // import your Redux action
+import SortableItem from "./SortableItem";
 
 const HomeSections = () => {
   const dispatch = useDispatch();
   const sections = useSelector((state) => state.home.sections);
-console.log("Sections from Redux:", sections);
+  console.log("Sections from Redux:", sections);
 
   const sensors = useSensors(useSensor(PointerSensor));
 
